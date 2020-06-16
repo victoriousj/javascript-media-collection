@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { Route } from 'react-router-dom';
 import {
   CssBaseline,
-  withStyles,
 } from '@material-ui/core';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
@@ -11,31 +10,45 @@ import Home from './pages/Home';
 import Movies from './pages/Movies'
 
 const theme = createMuiTheme({
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        'body': {
+          overflow: 'hidden',
+          backgroundColor: '#111'
+        },
+        '*::-webkit-scrollbar': {
+          width: '1.4em'
+        },
+        '*::-webkit-scrollbar-track': {
+          '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+          backgroundColor: 'rgba(0,0,0,0.4)'
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(255,255,255,.05)',
+          outline: '1px solid slategrey'
+        }
+      }
+    }
+  },
   palette: {
     type: 'dark'
   },
 });
 
-const styles = theme => ({
-  main: {
-    padding: theme.spacing(3),
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing(2),
-    },
-  },
-});
+function App() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Fragment>
+        <CssBaseline />
+        <AppHeader />
+        <main style={{ height: '95vh' }}>
+          <Route exact path='/' component={Home} />
+          <Route exact path='/movies' component={Movies} />
+        </main>
+      </Fragment>
+    </ThemeProvider>
+  );
+}
 
-const App = ({ classes }) => (
-  <ThemeProvider theme={theme}>
-    <Fragment>
-      <CssBaseline />
-      <AppHeader />
-      <main className={classes.main}>
-        <Route exact path='/' component={Home} />
-        <Route exact path='/movies' component={Movies} />
-      </main>
-    </Fragment>
-  </ThemeProvider>
-);
-
-export default withStyles(styles)(App);
+export default App;

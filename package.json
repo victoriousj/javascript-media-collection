@@ -5,6 +5,7 @@
   "dependencies": {
     "@material-ui/core": "^4.10.1",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.56",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -25,7 +26,7 @@
   "scripts": {
     "start": "npm-run-all --parallel watch:server start:web",
     "start:web": "react-scripts start",
-    "start:server": "node src/server",
+    "start:server": "node -r dotenv/config src/server",
     "watch:server": "nodemon --watch src/server src/server",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
@@ -45,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "file-loader": "^6.0.0"
   }
 }

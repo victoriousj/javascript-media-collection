@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '.env.local' });
+require('dotenv').config();
 
 const express = require('express');
 const cors = require('cors');
@@ -30,10 +30,27 @@ app.get('/movies', async function (req, res) {
   });
 });
 
+app.get('/movie/:id', async function (req, res) {
+  const { id } = req.params;
+
+  models.Movie.findAll({
+    where: {
+      id: id
+    },
+    limit: 1
+  }).then(function (movies) {
+    var titles = {
+      id: movies[0].id,
+      title: movies[0].title,
+      year: movies[0].releaseDate,
+    }
+
+    res.json(titles);
+  });
+});
+
 const port = process.env.SERVER_PORT || 3001;
 
 sequelize.sync().then(() => {
-  app.listen(port, () => {
-    console.log(`Listening on port ${port}`);
-  });
+  app.listen(port);
 });

@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 
-module.exports = (sequelize, DataTypes) => {
-  // class Movie extends Sequelize.Model { }
-  // Movie.init({
+module.exports = (sequelize) => {
   var Movie = sequelize.define(
     'Movie', {
     id: {
