@@ -98,7 +98,7 @@ const Movies = () => {
               </InputAdornment>
             )
           }} />
-        <Paper style={{ height: '93%', borderRadius: 0, borderTop: '10px solid #222' }} >
+        <Paper style={{ height: '100%', borderRadius: 0 }} >
           {
             media.length ? (
               <List className={classes.movieList}>
@@ -118,7 +118,7 @@ const Movies = () => {
           }
         </Paper>
       </div>
-      <div style={{ width: '100%', overflow: 'scroll' }}>
+      <div style={{ width: '100%', height: '(calc: 100vh - 65px)', overflowY: 'scroll' }}>
         {selectedMediaId !== 0 && <Details id={movies.selectedMediaId} />}
       </div>
     </div >

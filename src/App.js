@@ -42,7 +42,7 @@ function App() {
       <Fragment>
         <CssBaseline />
         <AppHeader />
-        <main style={{ height: '95vh' }}>
+        <main style={{ height: 'calc(100vh - 65px)' }}>
           <Route exact path='/' component={Home} />
           <Route exact path='/movies' component={Movies} />
         </main>

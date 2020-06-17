@@ -11,7 +11,7 @@ import plex from '../plex.svg'
 
 function AppHeader() {
   return (
-    <AppBar position="static" style={{ backgroundColor: '#303030', borderBottom: '2px solid #ddd' }}>
+    <AppBar position="static" style={{ backgroundColor: '#303030', borderBottom: '2px solid #ddd', height: 65 }}>
       <Toolbar style={{ display: 'flex', justifyContent: 'space-between' }}>
         <div>
           <img style={{ height: 15 }} src={plex} alt="Plex" />

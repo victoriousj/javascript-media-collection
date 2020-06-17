@@ -19,7 +19,7 @@ const useStyles = makeStyles(() => ({
   },
   body: {
     margin: '20px 0',
-    width: '80%',
+    width: '40%',
     height: 'auto',
     backgroundColor: 'rgba(255,255,255,0.1)',
     padding: '40px 60px',
@@ -91,7 +91,7 @@ function Details({ id }) {
             <MovieRatings ratings={movie.ratings} />
           </div>
           <hr />
-          <MovieImages title={movie.title} posterURI={movie.posterURI} backdropImage={movie.backdropImage} tagline={movie.tagline} />
+          <MovieImages otherImages={movie.otherImages} title={movie.title} posterURI={movie.posterURI} backdropImage={movie.backdropImage} tagline={movie.tagline} />
           <hr />
           <div className={classes.spaceBetween} >
             <Typography style={{ padding: '5px' }} variant="caption">{movie.tagline}</Typography>

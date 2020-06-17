@@ -35,7 +35,6 @@ export async function getMovieData(title, year) {
       .then(data => data.backdrops);
 
     const otherImages = movieDBImages.map(x => 'https://image.tmdb.org/t/p/original' + x.file_path);
-    console.log(otherImages);
 
     const omdbJson = await fetch(`http://www.omdbapi.com/?i=${movieDBJSON.imdb_id}&apikey=${OMDB_API_KEY}`)
       .then(response => response.json())
