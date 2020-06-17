@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import {
-  Typography, ListSubheader, ListItemText, List, ListItem, makeStyles, Paper, TextField
+  Typography,
+  ListItemText,
+  List,
+  ListItem,
+  makeStyles,
+  Paper,
+  TextField
 } from '@material-ui/core';
-import { Autocomplete } from '@material-ui/lab'
+
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
 
 import { getData } from '../helpers';
 import Details from './Details';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   container: {
     width: '100%',
-    padding: '10px',
+    height: '100%',
     display: 'flex',
-    backgroundColor: '#111',
-    height: '100%'
+    backgroundColor: '#000',
+  },
+  searchInput: {
+    width: '18vw',
+    padding: '10px 20px 5px 10px',
+    backgroundColor: '#222'
   },
   movieList: {
     width: '18vw',
     height: '100%',
     overflow: 'auto',
     position: 'relative',
+    borderLeft: '10px solid #222',
+    padding: 0,
   },
   movieItem: {
-    borderBottom: '1px solid rgba(0,0,0,0.1)',
+    fontSize: '12px',
+    backgroundColor: '#222',
+    borderBottom: '1px solid rgba(255,255,255, 0.2)',
   },
   details: {
+    marginTop: 50,
     marginLeft: '10%',
-    marginTop: 50
   },
   active: {
     backgroundColor: 'rgba(255,255,255,0.3)'
@@ -35,43 +52,64 @@ const useStyles = makeStyles((theme) => ({
 
 const Movies = () => {
   const [movies, setMovies] = useState({
-    loading: true,
     media: [],
-    selectedMediaId: 0,
     error: null,
+    loading: true,
+    selectedMediaId: 0,
   });
 
   useEffect(() => {
     const fetchMovies = (async () => {
       const json = await getData('get', 'movies');
-      setMovies({ loading: false, media: json || [], selectedMediaId: 0 })
+
+      setMovies({
+        loading: false,
+        media: json || [],
+        selectedMediaId: 285
+      });
     })
     fetchMovies();
   }, []);
+
+  async function searchInput(query) {
+    const json = await getData('get', `movies/${query}`);
+    setMovies({
+      loading: false,
+      media: json || [],
+      selectedMediaId: 0
+    });
+  };
 
   const { selectedMediaId, media } = movies;
   const classes = useStyles();
   return (
     <div className={classes.container}>
       <div>
-        <Autocomplete
-          size="small"
-          options={media.sort((a, b) => -b.title[0].localeCompare(a[0]))}
-          forcePopupIcon={false}
-          groupBy={(option) => option[0]}
-          getOptionLabel={(movie) => movie.title}
-          renderInput={(params) => <TextField {...params} label="&nbsp;&nbsp;Movies" variant="standard" />}
-          onChange={(e, value) => setMovies(prevState => {
-            return { ...prevState, selectedMediaId: value ? value.id : 0 }
-          })}
-        />
-
-        <Paper style={{ height: '94%' }} >
+        <TextField
+          className={classes.searchInput}
+          placeholder="&nbsp;Search..."
+          onChange={e => searchInput(e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment>
+                <IconButton>
+                  <SearchIcon />
+                </IconButton>
+              </InputAdornment>
+            )
+          }} />
+        <Paper style={{ height: '93%', borderRadius: 0, borderTop: '10px solid #222' }} >
           {
             media.length ? (
-              <List className={classes.movieList} >
+              <List className={classes.movieList}>
                 {media.map(media => (
-                  <ListItem selected={selectedMediaId === media.id ? true : false} className={`${classes.movieItem}`} key={media.id} button onClick={() => setMovies(prevState => { return { ...prevState, selectedMediaId: media.id } })}>
+                  <ListItem
+                    button
+                    key={media.id}
+                    className={`${classes.movieItem}`}
+                    selected={selectedMediaId === media.id ? true : false}
+                    onClick={() => setMovies(prevState => { return { ...prevState, selectedMediaId: media.id } })
+                    }>
                     <ListItemText primary={media.title} />
                   </ListItem>
                 ))}
@@ -80,7 +118,7 @@ const Movies = () => {
           }
         </Paper>
       </div>
-      <div style={{ height: '70vh', width: '90%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ width: '100%', overflow: 'scroll' }}>
         {selectedMediaId !== 0 && <Details id={movies.selectedMediaId} />}
       </div>
     </div >

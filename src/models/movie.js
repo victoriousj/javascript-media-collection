@@ -30,11 +30,6 @@ module.exports = (sequelize) => {
       type: Sequelize.STRING,
       allowNull: true,
     },
-    isAvailableOnVHS: {
-      type: Sequelize.BOOLEAN,
-      defaultValue: false,
-      allowNull: false,
-    },
   }, { sequelize });
 
   return Movie;

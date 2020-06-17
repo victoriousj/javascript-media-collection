@@ -1,6 +1,6 @@
 import React from 'react';
 
-import imdb from '../imdb.png';
+import imdb from '../assets/imdb.png';
 
 function IMDBLink({ link, title }) {
   return (
