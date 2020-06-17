@@ -65,7 +65,7 @@ const Movies = () => {
       setMovies({
         loading: false,
         media: json || [],
-        selectedMediaId: 285
+        selectedMediaId: 0
       });
     })
     fetchMovies();
@@ -114,7 +114,7 @@ const Movies = () => {
                   </ListItem>
                 ))}
               </List>
-            ) : <Typography variant="subtitle1">{movies.loading ? 'Loading...' : 'No posts to display'}</Typography>
+            ) : <Typography variant="subtitle1">{movies.loading ? 'Loading...' : 'No movies to display'}</Typography>
           }
         </Paper>
       </div>

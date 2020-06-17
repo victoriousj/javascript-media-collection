@@ -8,6 +8,7 @@ import DetailListing from '../components/DetailListing';
 
 import { getData, getMovieData } from '../helpers';
 
+
 const useStyles = makeStyles(() => ({
   container: {
     display: 'flex',
@@ -19,7 +20,7 @@ const useStyles = makeStyles(() => ({
   },
   body: {
     margin: '20px 0',
-    width: '40%',
+    width: 800,
     height: 'auto',
     backgroundColor: 'rgba(255,255,255,0.1)',
     padding: '40px 60px',
@@ -31,10 +32,10 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'space-between',
   },
   rating: {
-    backgroundColor: 'rgba(0,0,0,0.4)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     padding: '2px 5px',
     borderRadius: 3,
-    color: '#555',
+    color: '#777',
     fontSize: 14,
     fontWeight: 600,
     marginLeft: 10
@@ -101,7 +102,7 @@ function Details({ id }) {
           </div>
           <br />
           <Typography variant="body1">{movie.description}</Typography>
-          <div className={classes.spaceBetween} style={{ justifyContent: 'flex-end' }}>
+          <div className={classes.spaceBetween} style={{ justifyContent: 'flex-end', marginTop: 20 }}>
             <IMDBLink link={movie.imdbLink} title={movie.title} />
           </div>
           <hr />

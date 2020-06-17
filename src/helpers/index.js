@@ -40,7 +40,6 @@ export async function getMovieData(title, year) {
       .then(response => response.json())
       .then(data => data);
 
-
     const movieDetails = {
       backdropImage: 'https://image.tmdb.org/t/p/original' + movieDBJSON.backdrop_path,
       posterURI: 'https://image.tmdb.org/t/p/w500' + movieDBJSON.poster_path,

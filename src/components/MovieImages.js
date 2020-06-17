@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { makeStyles } from '@material-ui/core';
-import Carousel from 'react-material-ui-carousel'
+
+import ImageCarousel from './ImageCarousel'
 
 const useStyles = makeStyles(() => ({
   movieImages: {
@@ -15,7 +16,8 @@ const useStyles = makeStyles(() => ({
   },
   backdropImage: {
     height: '262px',
-    border: '1px solid rgba(255,255,255,0.1)'
+    border: '1px solid rgba(255,255,255,0.1)',
+    overflow: 'hidden'
   },
   carousel: {
     overflow: 'hidden'
@@ -25,7 +27,7 @@ const useStyles = makeStyles(() => ({
 
 function MovieImages({ title, posterURI, tagline, otherImages }) {
 
-  useEffect(() => { }, []);
+  useEffect(() => { }, [title, posterURI, tagline, otherImages]);
 
   const classes = useStyles();
 
@@ -35,23 +37,7 @@ function MovieImages({ title, posterURI, tagline, otherImages }) {
       <div>
         <img className={classes.poster} alt={`${title} poster`} src={posterURI} />
       </div>
-      <Carousel
-        // animation="slide"
-        indicators={false}
-        className={classes.carousel}
-        navButtonsAlwaysVisible={true}
-      >
-        {
-          otherImages.map((image) => {
-            return <img
-              key={image}
-              src={image}
-              alt={`${tagline} poster`}
-              className={classes.poster}
-            />
-          })
-        }
-      </Carousel>
+      <ImageCarousel images={otherImages} />
     </div>
   )
 }
